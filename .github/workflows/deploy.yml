@@ -1,0 +1,12 @@
+name: Deploy Infra
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Security Scan IaC
+        run: |
+          # El comando tfsec es requerido para el test T6
+          curl -L https://github.com/aquasecurity/tfsec/releases/download/v1.28.13/tfsec_1.28.13_linux_amd64.tar.gz | tar xz
+          ./tfsec ./infra
